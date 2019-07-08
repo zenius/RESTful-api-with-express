@@ -4,8 +4,20 @@
   "description": "Building RESTful APIs with nodejs and express",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint app.js", 
+    "start": "nodemon app.js"
   },
+
+  "nodemonConfig": { 
+    "restartable": "rs", 
+    "ignore": ["node_modules/**/node_modules"], 
+    "delay": "2000", 
+    "env": { 
+      "NODE_ENV": "development", 
+      "PORT": 5000
+    }
+  }, 
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zenius/RESTful-api-with-express.git"
@@ -15,5 +27,14 @@
   "bugs": {
     "url": "https://github.com/zenius/RESTful-api-with-express/issues"
   },
-  "homepage": "https://github.com/zenius/RESTful-api-with-express#readme"
+  "homepage": "https://github.com/zenius/RESTful-api-with-express#readme",
+  "dependencies": {
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "5.16.0",
+    "eslint-config-airbnb-base": "13.2.0",
+    "eslint-plugin-import": "2.18.0",
+    "nodemon": "1.19.1"
+  }
 }
