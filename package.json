@@ -1,0 +1,19 @@
+{
+  "name": "restful-api-with-express",
+  "version": "1.0.0",
+  "description": "Building RESTful APIs with nodejs and express",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zenius/RESTful-api-with-express.git"
+  },
+  "author": "zenius lama (zenius2050@protonmail.com)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/zenius/RESTful-api-with-express/issues"
+  },
+  "homepage": "https://github.com/zenius/RESTful-api-with-express#readme"
+}
