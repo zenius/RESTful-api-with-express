@@ -28,7 +28,7 @@ bookController.getBookById = (req, res, next) => {
   Book.findById(id, (err, book) => {
     if (err) {
       // Bad Request
-      return res.status(400).json(err);
+      return res.json(err);
     }
 
     if (book) {
@@ -36,7 +36,7 @@ bookController.getBookById = (req, res, next) => {
       return next();
     }
     // book not found
-    return res.status(404).json(book);
+    return res.sendStatus(404);
   });
 };
 
@@ -92,10 +92,22 @@ bookController.patchBook = (req, res) => {
   book.save((err) => {
     if (err) {
       // Internal server error
-      return res.status(500).json(err);
+      return res.json(err);
     }
     // book update successful
     return res.json(book);
+  });
+};
+
+bookController.deleteBook = (req, res) => {
+  const { book } = req;
+
+  book.remove((err) => {
+    if (err) {
+      return res.json(err);
+    }
+    // book deleted successfully : 204(No-Content)
+    return res.sendStatus(204);
   });
 };
 

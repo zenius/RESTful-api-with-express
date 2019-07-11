@@ -10,5 +10,6 @@ bookRoutes.get('/books/:id', (req, res) => { res.json(req.book); });
 bookRoutes.post('/books', bookController.addBook);
 bookRoutes.put('/books/:id', bookController.updateBook);
 bookRoutes.patch('/books/:id', bookController.patchBook);
+bookRoutes.delete('/books/:id', bookController.deleteBook);
 
 module.exports = bookRoutes;
