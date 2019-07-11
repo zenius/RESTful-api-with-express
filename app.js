@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { url } = require('./config/mongodb-config');
 const { local } = require('./config/app-config');
-const bookRoutes = require('./src/routes/book-routes');
+const bookRoutes = require('./src/routes/book-route');
 
 const port = process.env.PORT || local.port;
 const app = express();
