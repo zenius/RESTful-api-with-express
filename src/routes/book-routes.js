@@ -1,12 +1,16 @@
 const express = require('express');
+const Book = require('../models/book-model');
 
 const bookRoutes = express.Router();
 
 bookRoutes.route('/books')
   .get((req, res) => {
-    const response = { message: 'get response for books' };
-
-    res.json(response);
+    Book.find((err, books) => {
+      if (err) {
+        res.send(err);
+      }
+      return res.json(books);
+    });
   });
 
 module.exports = bookRoutes;
