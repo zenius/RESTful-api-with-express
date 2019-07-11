@@ -23,14 +23,20 @@ bookController.getBooks = (req, res) => {
 };
 
 // get book by Id
-bookController.getBookById = (req, res) => {
+bookController.getBookById = (req, res, next) => {
   const { id } = req.params;
   Book.findById(id, (err, book) => {
     if (err) {
-      // book not found
-      return res.status(404).json(err);
+      // Bad Request
+      return res.status(400).json(err);
     }
-    return res.status(200).json(book);
+
+    if (book) {
+      req.book = book;
+      return next();
+    }
+    // book not found
+    return res.status(404).json(book);
   });
 };
 
@@ -46,28 +52,20 @@ bookController.addBook = (req, res) => {
 
 // update the existing book
 bookController.updateBook = (req, res) => {
-  const { id } = req.params;
+  const { book } = req;
+  const {
+    title, author, genre, read,
+  } = req.body;
 
-  Book.findById(id, (err, book) => {
-    if (err) {
-      // book not found
-      return res.status(404).json(err);
-    }
+  book.title = title;
+  book.author = author;
+  book.genre = genre;
+  book.read = read;
 
-    const {
-      title, author, genre, read,
-    } = req.body;
+  book.save();
 
-    book.title = title;
-    book.author = author;
-    book.genre = genre;
-    book.read = read;
-
-    book.save();
-
-    // book update successful: supported status: 200(OK) or 204(no-content)
-    return res.status(200).json(book);
-  });
+  // book update successful
+  return res.json(book);
 };
 
 module.exports = bookController;

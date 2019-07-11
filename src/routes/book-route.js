@@ -4,7 +4,9 @@ const bookController = require('../controllers/book-controller');
 const bookRoutes = express.Router();
 
 bookRoutes.get('/books', bookController.getBooks);
-bookRoutes.get('/books/:id', bookController.getBookById);
+// inserting middleware for the route '/books/:id'
+bookRoutes.use('/books/:id', bookController.getBookById);
+bookRoutes.get('/books/:id', (req, res) => { res.json(req.book); });
 bookRoutes.post('/books', bookController.addBook);
 bookRoutes.put('/books/:id', bookController.updateBook);
 
