@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 const Book = require('../models/book-model');
 
 const bookController = {};
@@ -13,9 +15,10 @@ bookController.getBooks = (req, res) => {
 
   Book.find(query, (err, books) => {
     if (err) {
-      res.json(err);
+      // books not found
+      return res.status(400).json(err);
     }
-    return res.json(books);
+    return res.status(200).json(books);
   });
 };
 
@@ -24,9 +27,10 @@ bookController.getBookById = (req, res) => {
   const { id } = req.params;
   Book.findById(id, (err, book) => {
     if (err) {
-      res.json(err);
+      // book not found
+      return res.status(400).json(err);
     }
-    return res.json(book);
+    return res.status(200).json(book);
   });
 };
 
@@ -36,8 +40,34 @@ bookController.addBook = (req, res) => {
 
   book.save();
 
-  // return the status code along with data
+  // book successfully created
   return res.status(201).json(book);
+};
+
+// update the existing book
+bookController.updateBook = (req, res) => {
+  const { id } = req.params;
+
+  Book.findById(id, (err, book) => {
+    if (err) {
+      // book not found
+      return res.status(400).json(err);
+    }
+
+    const {
+      title, author, genre, read,
+    } = req.body;
+
+    book.title = title;
+    book.author = author;
+    book.genre = genre;
+    book.read = read;
+
+    book.save();
+
+    // book update successful: supported status: 200(OK) or 204(no-content)
+    return res.status(200).json(book);
+  });
 };
 
 module.exports = bookController;
