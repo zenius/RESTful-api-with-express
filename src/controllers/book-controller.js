@@ -13,9 +13,9 @@ bookController.getBooks = (req, res) => {
 
   Book.find(query, (err, books) => {
     if (err) {
-      res.send(err);
+      res.json(err);
     }
-    return res.send(books);
+    return res.json(books);
   });
 };
 
@@ -24,10 +24,20 @@ bookController.getBookById = (req, res) => {
   const { id } = req.params;
   Book.findById(id, (err, book) => {
     if (err) {
-      res.send(err);
+      res.json(err);
     }
-    return res.send(book);
+    return res.json(book);
   });
+};
+
+// add new book
+bookController.addBook = (req, res) => {
+  const book = new Book(req.body);
+
+  book.save();
+
+  // return the status code along with data
+  return res.status(201).json(book);
 };
 
 module.exports = bookController;
