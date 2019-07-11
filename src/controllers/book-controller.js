@@ -15,8 +15,8 @@ bookController.getBooks = (req, res) => {
 
   Book.find(query, (err, books) => {
     if (err) {
-      // books not found
-      return res.status(400).json(err);
+      // books not found: 404(NOT FOUND)
+      return res.status(404).json(err);
     }
     return res.status(200).json(books);
   });
@@ -28,7 +28,7 @@ bookController.getBookById = (req, res) => {
   Book.findById(id, (err, book) => {
     if (err) {
       // book not found
-      return res.status(400).json(err);
+      return res.status(404).json(err);
     }
     return res.status(200).json(book);
   });
@@ -51,7 +51,7 @@ bookController.updateBook = (req, res) => {
   Book.findById(id, (err, book) => {
     if (err) {
       // book not found
-      return res.status(400).json(err);
+      return res.status(404).json(err);
     }
 
     const {
