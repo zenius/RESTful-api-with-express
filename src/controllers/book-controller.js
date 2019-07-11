@@ -62,10 +62,41 @@ bookController.updateBook = (req, res) => {
   book.genre = genre;
   book.read = read;
 
-  book.save();
+  book.save((err) => {
+    if (err) {
+      // Internal server error
+      return res.status(500).json(err);
+    }
+    // book update successful
+    return res.json(book);
+  });
+};
 
-  // book update successful
-  return res.json(book);
+// update the specific property/properties of the book
+bookController.patchBook = (req, res) => {
+  const { book } = req;
+
+  // remove the id of the book: prevent id from being updated
+  // eslint-disable-next-line no-underscore-dangle
+  if (req.body._id) {
+    // eslint-disable-next-line no-underscore-dangle
+    delete req.body._id;
+  }
+
+  // update the property/properties in the request body
+  Object.entries(req.body).forEach((item) => {
+    const [key, value] = item;
+    book[key] = value;
+  });
+
+  book.save((err) => {
+    if (err) {
+      // Internal server error
+      return res.status(500).json(err);
+    }
+    // book update successful
+    return res.json(book);
+  });
 };
 
 module.exports = bookController;
