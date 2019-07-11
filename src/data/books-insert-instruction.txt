@@ -1,0 +1,7 @@
+To import books data into your mongoDB database. 
+Make sure MongoDB is running. Then run 
+'mongo your_document_name < your_json_file_path' from the command line.
+
+In my case, 
+mongo books < src/data/books-json.json
+
