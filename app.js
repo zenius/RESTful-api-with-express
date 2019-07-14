@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // routes
-app.use(bookRoutes);
+app.use('/api/v1.0', bookRoutes);
 
 // home route
 app.get('/', (req, res) => {
@@ -25,5 +25,6 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`server listening at port ${port}`);
 });

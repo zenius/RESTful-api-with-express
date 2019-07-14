@@ -18,7 +18,16 @@ bookController.getBooks = (req, res) => {
       // books not found: 404(NOT FOUND)
       return res.status(404).json(err);
     }
-    return res.status(200).json(books);
+
+    // HATEOAS implementation
+    // adding link to navigate to self
+    const returnBooks = books.map((book) => {
+      const newBook = book.toJSON();
+      newBook.links = {};
+      newBook.links.self = `http://${req.headers.host}/api/v1.0/books/${book._id}`;
+      return newBook;
+    });
+    return res.status(200).json(returnBooks);
   });
 };
 
